@@ -1,0 +1,52 @@
+version: "3.7"
+
+
+services:
+  django:
+    build: ./backend
+    volumes:
+      - ./backend:/app/backend
+      - ./docs:/app/docs
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.development
+    env_file:
+      - ./.envs/.django
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+
+  react:
+    build: ./frontend
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend:/app
+      # One-way volume to use node_modules from inside image
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - django
+    command: npm start
+
+
+
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.postgresql
+    ports:
+      - "5432:5432"
