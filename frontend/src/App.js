@@ -8,24 +8,28 @@ import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
 import Signup from './containers/Signup';
 import Layout from './hocs/Layout';
 
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
 
 
 return(
-  <BrowserRouter>
-    <Layout>
-      <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />}/>
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
-          <Route path="/activate/:uid/token" element={<Activate />} />
+  <Provider store={store}>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />}/>
+            <Route path="/sign-up" element={<Signup />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+            <Route path="/activate/:uid/token" element={<Activate />} />
 
-      </Routes>
-    </Layout>
-  </BrowserRouter>
+        </Routes>
+      </Layout>
+    </BrowserRouter>
+  </Provider>
 )
 
 };

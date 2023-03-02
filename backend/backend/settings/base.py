@@ -34,6 +34,7 @@ THIRDPARTY_APPS = ['rest_framework',
                    'rest_framework.authtoken',
                    'rest_framework_simplejwt',
                    'djoser',
+                   'corsheaders',
                    
 ]
 
@@ -49,6 +50,7 @@ INSTALLED_APPS = BASE_APPS + THIRDPARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -127,11 +129,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ("rest_framework.permissions.IsAuthenticated",),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+   'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 AUTH_USER_MODEL = 'users.UserProxy'
@@ -158,3 +160,6 @@ DJOSER = {
         # 'current_user': 'users.serializers.UserCreateSerializer',
     }
 }
+
+
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:8000']

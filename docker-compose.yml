@@ -32,10 +32,12 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_NODE_ENV=development
-      - WATCHPACK_POLLING=true
-      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - ./.envs/.react
+    # environment:
+    #   - REACT_APP_NODE_ENV=development
+    #   - WATCHPACK_POLLING=true
+    #   - CHOKIDAR_USEPOLLING=true
     depends_on:
       - django
     command: npm start
