@@ -18,17 +18,17 @@ class UserAccountManager(BaseUserManager):
         return user      
 
 
-    def create_superuser(self, email, name, password=None):
-        if not email:
-          raise ValueError("USERS MUST HAVE EMAIL ADDRESS")
+    # def create_superuser(self, email, name, password=None):
+    #     if not email:
+    #       raise ValueError("USERS MUST HAVE EMAIL ADDRESS")
 
-        email = self.normalize_email(email)
-        superuser = self.model(email=email, name=name)
+    #     email = self.normalize_email(email)
+    #     superuser = self.model(email=email, name=name)
 
-        superuser.set_password(password)
-        superuser.save()
+    #     superuser.set_password(password)
+    #     superuser.save()
 
-        return superuser
+    #     return superuser
 
 
 
