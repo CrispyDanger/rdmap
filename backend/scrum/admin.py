@@ -3,7 +3,7 @@ from .models import ScrumBoard, Task, Project
 
 
 class ScrumBoardAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at', 'modified_at')
+    list_display = ('name', 'project', 'created_at', 'modified_at')
     empty_value_display = '-empty-'
 
 
@@ -13,7 +13,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name','user_id', "scrum_board", 'created_at', 'modified_at')
+    list_display = ('name','user_id', 'created_at', 'modified_at')
     empty_value_display = '-empty-'
 
 admin.site.register(ScrumBoard, ScrumBoardAdmin)
