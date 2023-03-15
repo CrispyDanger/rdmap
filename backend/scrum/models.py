@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils import timezone
 
@@ -13,6 +14,8 @@ class Project(models.Model):
         verbose_name = ("Project")
         verbose_name_plural = ("Projects")
 
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=20, null=False, default="New Project")
     user_id = models.ForeignKey("users.UserProxy", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -24,7 +27,8 @@ class Project(models.Model):
 
 
 class ScrumBoard(models.Model):
-    name = models.CharField(max_length=20)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=20, default="New Scrumboard")
     project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name="scrumboards")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     modified_at = models.DateTimeField(auto_now=True)

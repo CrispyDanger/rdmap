@@ -14,4 +14,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('projects/', views.ProjectView.as_view()),
+    path('projects/<uuid:pk>/', views.ProjectDetailView.as_view()),
+    path('projects/<uuid:pk>/board/', views.ScrumBoardView.as_view()),
 ]
