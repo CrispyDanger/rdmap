@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('scrum', '0002_alter_scrumboard_name'),
+        ("scrum", "0002_alter_scrumboard_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='scrumboard',
-            name='name',
-            field=models.CharField(default='New Scrumboard', max_length=20),
+            model_name="scrumboard",
+            name="name",
+            field=models.CharField(default="New Scrumboard", max_length=20),
         ),
     ]
