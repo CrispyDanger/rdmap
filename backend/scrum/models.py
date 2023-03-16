@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
+from django_extensions.db.fields import AutoSlugField
 
 TYPE_CHOICE = [("NA", "Not Assigned"), ("IP", "In Progress"), ("CP", "Completed")]
 
@@ -13,6 +14,7 @@ class Project(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=20, null=False, default="New Project")
+    slug = AutoSlugField(populate_from=["name"])
     user_id = models.ForeignKey("users.UserProxy", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -24,6 +26,7 @@ class Project(models.Model):
 class ScrumBoard(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=20, default="New Scrumboard")
+    slug = AutoSlugField(populate_from=["name"])
     project = models.OneToOneField(
         Project, on_delete=models.CASCADE, related_name="scrumboards"
     )
@@ -40,6 +43,7 @@ class ScrumBoard(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=50, default="New Task")
+    slug = AutoSlugField(populate_from=["name"])
     scrum_board = models.ForeignKey(
         ScrumBoard, on_delete=models.CASCADE, related_name="tasks"
     )

@@ -21,29 +21,42 @@ class ProjectView(APIView):
 
 
 class ProjectDetailView(APIView):
-    def get_object(self, pk):
+    def get_object(self, slug):
         try:
-            return Project.objects.filter(pk=pk)
+            return Project.objects.filter(slug=slug)
         except Project.DoesNotExist:
             return status.HTTP_404_NOT_FOUND
 
-    def get(self, pk, format=None):
-        project = self.get_object(pk)
+    def get(self, request, slug, format=None):
+        project = self.get_object(slug)
         serializer = ProjectSerializer(project, many=True)
         return Response(serializer.data)
 
 
 class ScrumBoardView(APIView):
-    def get_project(self, pk):
-        project = Project.objects.get(id=pk)
+    def get_project(self, slug):
+        project = Project.objects.get(slug=slug)
         return project
 
-    def post(self, request, pk, format=None):
+    def post(self, request, slug, format=None):
         data = request.data
-        data["project"] = pk
+        data["project"] = slug
         print(data)
         serializer = ScrumBoardSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ScrumBoardDetailView(APIView):
+    def get_object(self, slug):
+        try:
+            return Project.objects.filter(slug=slug)
+        except Project.DoesNotExist:
+            return status.HTTP_404_NOT_FOUND
+
+    def get(self, slug, format=None):
+        project = self.get_object(slug)
+        serializer = ProjectSerializer(project, many=True)
+        return Response(serializer.data)
