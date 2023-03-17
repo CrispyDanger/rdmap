@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Project
-from .serializers import ProjectSerializer, ScrumBoardSerializer
+from .models import Project, ScrumBoard
+from .serializers import ProjectSerializer, ScrumBoardSerializer, TaskSerializer
 
 
 class ProjectView(APIView):
@@ -41,7 +41,6 @@ class ScrumBoardView(APIView):
     def post(self, request, slug, format=None):
         data = request.data
         data["project"] = slug
-        print(data)
         serializer = ScrumBoardSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -52,11 +51,24 @@ class ScrumBoardView(APIView):
 class ScrumBoardDetailView(APIView):
     def get_object(self, slug):
         try:
-            return Project.objects.filter(slug=slug)
+            project = Project.objects.filter(slug=slug)[0]
         except Project.DoesNotExist:
             return status.HTTP_404_NOT_FOUND
+        try:
+            return ScrumBoard.objects.filter(project=project)
+        except ScrumBoard.DoesNotExist:
+            return status.HTTP_404_NOT_FOUND
 
-    def get(self, slug, format=None):
-        project = self.get_object(slug)
-        serializer = ProjectSerializer(project, many=True)
+    def get(self, request, slug, format=None):
+        scrumboard = self.get_object(slug)
+        serializer = ScrumBoardSerializer(scrumboard, many=True)
         return Response(serializer.data)
+
+    def post(self, request, slug, format=None):
+        data = request.data
+        data["scrum_board"] = self.get_object(slug)[0].id
+        serializer = TaskSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

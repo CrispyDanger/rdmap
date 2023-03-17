@@ -47,7 +47,7 @@ class Task(models.Model):
     scrum_board = models.ForeignKey(
         ScrumBoard, on_delete=models.CASCADE, related_name="tasks"
     )
-    task_type = models.CharField(choices=TYPE_CHOICE, max_length=20)
+    task_type = models.CharField(choices=TYPE_CHOICE, max_length=20, default="NA")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     modified_at = models.DateTimeField(auto_now=True)
 
