@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Project, ScrumBoard
+from .models import Project, ScrumBoard, Task
 from .serializers import ProjectSerializer, ScrumBoardSerializer, TaskSerializer
 
 
@@ -49,7 +49,7 @@ class ScrumBoardView(APIView):
 
 
 class ScrumBoardDetailView(APIView):
-    def get_object(self, slug):
+    def get_scrum(self, slug):
         try:
             project = Project.objects.filter(slug=slug)[0]
         except Project.DoesNotExist:
@@ -59,16 +59,33 @@ class ScrumBoardDetailView(APIView):
         except ScrumBoard.DoesNotExist:
             return status.HTTP_404_NOT_FOUND
 
+    def get_task(self, data, scrumboard):
+        name = data["task_name"]
+        try:
+            return Task.objects.filter(name=name, scrum_board=scrumboard)
+        except Task.DoesNotExist:
+            return status.HTTP_404_NOT_FOUND
+
     def get(self, request, slug, format=None):
-        scrumboard = self.get_object(slug)
+        scrumboard = self.get_scrum(slug)
         serializer = ScrumBoardSerializer(scrumboard, many=True)
         return Response(serializer.data)
 
     def post(self, request, slug, format=None):
         data = request.data
-        data["scrum_board"] = self.get_object(slug)[0].id
+        data["scrum_board"] = self.get_scrum(slug)[0].id
         serializer = TaskSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, slug, format=None):
+        data = request.data
+        scrumboard = self.get_scrum(slug)[0]
+        task = self.get_task(data, scrumboard)[0]
+        serializer = TaskSerializer(task, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
