@@ -32,6 +32,15 @@ class ProjectDetailView(APIView):
         serializer = ProjectSerializer(project, many=True)
         return Response(serializer.data)
 
+    def patch(self, request, slug):
+        data = request.data
+        project = self.get_object(slug)[0]
+        serializer = ProjectSerializer(project, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ScrumBoardView(APIView):
     def get_project(self, slug):
