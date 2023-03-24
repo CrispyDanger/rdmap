@@ -136,6 +136,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "BLACKLIST_AFTER_ROTATION": False,
 }
 
 AUTH_USER_MODEL = "users.UserProxy"

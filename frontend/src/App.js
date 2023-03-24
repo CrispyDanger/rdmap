@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import Activate from './containers/Activate';
+import Projects from './containers/Projects';
 import ResetPassword from './containers/ResetPassword';
 import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
 import Signup from './containers/Signup';
@@ -20,6 +21,7 @@ return(
       <Layout>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
