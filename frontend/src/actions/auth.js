@@ -152,10 +152,9 @@ const refreshToken = () => dispatch => {
 
 }
 
-
-//TO FIX
-axios.interceptors.request.use(async (request) => {
-    if(isTokenExpired()){
-        refreshToken()
-    }
-})
+// //TO FIX
+// axios.interceptors.request.use(async (request) => {
+//     if(isTokenExpired()){
+//         refreshToken()
+//     }
+// })
