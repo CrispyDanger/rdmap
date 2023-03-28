@@ -5,6 +5,7 @@ import Login from './containers/Login';
 import Activate from './containers/Activate';
 import ProjectList from './containers/ProjectList';
 import ProjectDetail from './containers/ProjectDetail';
+import TaskContainer from './containers/TaskContainer';
 import ResetPassword from './containers/ResetPassword';
 import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
 import Signup from './containers/Signup';
@@ -23,7 +24,7 @@ return(
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<ProjectList />}/>
-            <Route path="/projects/:slug/" element={<ProjectDetail />}/>
+            <Route path="/projects/:slug/" element={<TaskContainer />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
