@@ -24,7 +24,7 @@ function Login({login, isAuthenticated}) {
   };
 
   if (isAuthenticated) {
-    return <Navigate to='/projects'/>
+    return <Navigate to='/'/>
   }
 
   return (

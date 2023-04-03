@@ -16,7 +16,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ScrumBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScrumBoard
-        fields = ["name", "project", "tasks", "created_at", "modified_at"]
+        fields = ["tasks"]
         read_only_fields = ["created_at", "modified_at", "project", "tasks"]
         depth = 1
 

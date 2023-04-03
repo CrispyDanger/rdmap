@@ -4,7 +4,12 @@ from django.db import models
 from django.utils import timezone
 from django_extensions.db.fields import AutoSlugField
 
-TYPE_CHOICE = [("NA", "Not Assigned"), ("IP", "In Progress"), ("CP", "Completed")]
+TYPE_CHOICE = [
+    ("NA", "Not Assigned"),
+    ("TD", "To Do"),
+    ("IP", "In Progress"),
+    ("CP", "Completed"),
+]
 
 
 class Project(models.Model):
