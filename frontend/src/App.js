@@ -12,19 +12,22 @@ import Signup from './containers/Signup';
 import Layout from './hocs/Layout';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import { store, persistor } from "./store"
+import { PersistGate } from 'redux-persist/integration/react'
+import { Blocks } from 'react-loader-spinner'
 
 function App() {
 
 
 return(
   <Provider store={store}>
+    <PersistGate loading={<Blocks />} persistor={persistor}>
     <BrowserRouter>
       <Layout>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<ProjectList />}/>
-            <Route path="/projects/:slug/board/tasks" element={<TaskContainer />}/>
+            {/* <Route path="/projects/:slug/board/tasks" element={<TaskContainer />}/> */}
             <Route path="/login" element={<Login />}/>
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
@@ -34,6 +37,7 @@ return(
         </Routes>
       </Layout>
     </BrowserRouter>
+    </PersistGate>
   </Provider>
 )
 

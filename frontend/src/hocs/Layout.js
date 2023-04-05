@@ -9,6 +9,7 @@ const Layout = (props) => {
     useEffect(() => {
         props.checkAuthenticated();
         props.load_user();
+        props.load_projects();
     }, [])
 
     return (
@@ -19,4 +20,4 @@ const Layout = (props) => {
     )
     };
 
-export default connect(null, { checkAuthenticated, load_user})(Layout);
+export default connect(null, {load_projects, checkAuthenticated, load_user})(Layout);

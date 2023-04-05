@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PROJECT_LOADED_FAIL, PROJECT_LOADED_SUCCESS} from "./types";
+import { PROJECT_LOADED_FAIL, PROJECT_LOADED_SUCCESS, PROJECT_LOAD_REQUEST} from "./types";
 
 
 
@@ -16,13 +16,16 @@ export const load_projects = () => async dispatch => {
     // const body = JSON.stringify({ token: localStorage.getItem('access')})
 
     try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/projects/`, config);
-        const projects = res.data
+        dispatch({
+            type: PROJECT_LOAD_REQUEST
+        })
+
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/projects/`, config)
+
         dispatch({
             type: PROJECT_LOADED_SUCCESS,
-            payload: projects
+            payload: res.data
         });
-
     } catch(err){
         dispatch({
             type: PROJECT_LOADED_FAIL

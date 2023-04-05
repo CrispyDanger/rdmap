@@ -68,6 +68,7 @@ export const load_user = () => async dispatch => {
             payload: res.data
         });
 
+
     } catch(err){
         dispatch({
             type: USER_LOADED_FAIL
