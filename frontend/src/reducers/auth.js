@@ -85,6 +85,7 @@ export default function(state = initialState, action) {
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
+            localStorage.removeItem('persist:root');
             return{
                 ...state,
                 access: null,

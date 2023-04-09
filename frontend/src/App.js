@@ -27,7 +27,7 @@ return(
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<ProjectList />}/>
-            {/* <Route path="/projects/:slug/board/tasks" element={<TaskContainer />}/> */}
+            <Route path="/projects/:slug/board/tasks" element={<TaskContainer />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />

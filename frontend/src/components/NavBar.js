@@ -12,20 +12,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
     };
 
     const guestLinks = () => (
-        <Fragment>
-            <li className='nav-item'>
-                <Link className='nav-link' to='/login'>Login</Link>
-            </li>
-            <li className='nav-item'>
-                <Link className='nav-link' to='/signup'>Sign Up</Link>
-            </li>
-        </Fragment>
+      <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500">Log in <span aria-hidden="true">&rarr;</span></Link>
     );
 
     const authLinks = () => (
-        <li className='nav-item'>
-            <a className='nav-link' href='#!' onClick={logout_user}>Logout</a>
-        </li>
+      <a href='#!' onClick={logout_user} className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500">Log Out <span aria-hidden="true">&rarr;</span></a>
     );
 
     return (
@@ -60,7 +51,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
       <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Company</a>
     </div>
     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-      <Link to="/login/" className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500">Log in <span aria-hidden="true">&rarr;</span></Link>
+      { isAuthenticated ? authLinks() : guestLinks()}
     </div>
   </nav>
   <div className="lg:hidden" role="dialog" aria-modal="true">
