@@ -2,6 +2,8 @@ rdmap =====
 
 [![Built with Cookiecutter React Django](https://img.shields.io/badge/built%20with-Cookiecutter%20React%20Django-blue)](https://img.shields.io/badge/built%20with-Cookiecutter%20React%20Django-blue)
 
+[![Django CI](https://github.com/CrispyDanger/rdmap/actions/workflows/django.yml/badge.svg)](https://github.com/CrispyDanger/rdmap/actions/workflows/django.yml)
+
 ## Local setup
 On your terminal, simply do `docker-compose up --build`, and wait for the containers to build. Eventually, you'll be able to see the index page by going to `[http://127.0.0.1/](http://127.0.0.1/)`.
 
